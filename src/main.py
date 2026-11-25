@@ -1,4 +1,5 @@
 import argparse
+from stego import hide
 
 def main():
     parser = argparse.ArgumentParser(description='Steganography tool')
@@ -15,7 +16,12 @@ def main():
     args = parser.parse_args()
 
     if args.command == 'hide':
-        print(args.input, args.output, args.secret)
+        try:
+            hide(args.input, args.output, args.secret)
+        except ValueError as e:
+            print(e)
+        except FileNotFoundError:
+            print("L\'image d\'entrée est introuvable.")
     elif args.command == 'reveal': 
         print(args.image)
         
